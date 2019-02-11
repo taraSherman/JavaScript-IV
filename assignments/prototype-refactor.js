@@ -5,49 +5,37 @@ Prototype Refactor
 1. Copy and paste your code or the solution from yesterday
 
 2. Your goal is to refactor all of this code to use ES6 Classes. The console.log() statements should still return what is expected of them.
-
 */
-function GameObject(gameObjectAttributes) {
-    this.createdAt = gameObjectAttributes.createdAt;
-    this.name = gameObjectAttributes.name;
-    this.dimensions = gameObjectAttributes.dimensions;
-    // this.destroy = function () {
-    //   return (`${this.name} was removed from the game`);
-    // }
+
+class GameObject {
+    constructor(gameObjectAttributes) {
+        this.createdAt = gameObjectAttributes.createdAt;
+        this.name = gameObjectAttributes.name;
+        this.dimensions = gameObjectAttributes.dimensions;
+    }
+    destroy() {
+        return `${this.name} was removed from the game`;
+    }
 }
-
-GameObject.prototype.destroy = function () {
-    return `${this.name} was removed from the game`;
+class CharacterStats extends GameObject {
+    constructor(charAttributes) {
+        super(charAttributes);
+        this.healthPoints = charAttributes.healthPoints;
+    }
+    takeDamage() {
+        return `${this.name} took damage`;
+    }
 }
-
-function CharacterStats(charAttributes) {
-    GameObject.call(this, charAttributes);
-    this.healthPoints = charAttributes.healthPoints;
-    // this.takeDamage = function () {
-    //   return (`${this.name} took damage.`);
-    // }
-}
-
-CharacterStats.prototype = Object.create(GameObject.prototype);
-
-CharacterStats.prototype.takeDamage = function () {
-    return `${this.name} took damage`;
-}
-
-function Humanoid(humAttributes) {
-    CharacterStats.call(this, humAttributes);
-    this.team = humAttributes.team;
-    this.weapons = humAttributes.weapons;
-    this.language = humAttributes.language;
-    // this.greet = function () {
-    //   return (`${this.name} offers a greeting in ${this.language}.`)
-    // }
-}
-
-Humanoid.prototype = Object.create(CharacterStats.prototype);
-
-Humanoid.prototype.greet = function () {
-    return `${this.name} offers a greeting in ${this.language}`;
+class Humanoid extends GameObject {
+    constructor (humAttributes) {
+        super(humAttributes);
+        this.team = humAttributes.team;
+        this.weapons = humAttributes.weapons;
+        this.language = humAttributes.language;
+    }
+    greet() {
+        return `${this.name} offers a greeting in ${this.language}`;
+    }
 }
 
 const mage = new Humanoid({
