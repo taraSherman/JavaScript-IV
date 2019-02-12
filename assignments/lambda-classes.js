@@ -1,89 +1,104 @@
 // CODE here for your Lambda Classes
 class Person {
-    constructor(name, age, location, gender) {
-        this.name = name;
-        this.age = age;
-        this.location = location;
-        this.gender = gender;
+    constructor(properties) {
+        this.name = properties.name;
+        this.age = properties.age;
+        this.location = properties.location;
+        this.gender = properties.gender;
     }
     speak() {
-        console.log(`Hello, my name is ${this.name}, I am from ${this.location}.`);
+        return (`Hello, my name is ${this.name}, I am from ${this.location}.`);
     }
 }
 
 class Instructor extends Person {
     constructor(instructorProps) {
         super(instructorProps);
-        this.specialty = specialty;
-        this.favLanguage = favLanguage;
-        this.catchPhrase = catchPhrase;
+        this.specialty = instructorProps.specialty;
+        this.favLanguage = instructorProps.favLanguage;
+        this.catchPhrase = instructorProps.catchPhrase;
     }
     demo(subject) {
-        console.log(`Today we are learning about ${subject}.`);
+        return (`Today we are learning about ${subject}.`);
     }
-    grade(student) {
-        console.log(`${student.name} receives a perfect score on ${subject}`);
+    grade(student, subject) {
+        return (`${student.name} receives a perfect score on ${subject}`);
     }
 }
 
 class Student extends Person {
     constructor(studentProps) {
         super(studentProps);
-        this.previousBackground = previousBackground;
-        this.className = className;
-        this.favSubjects = favSubjects;
+        this.previousBackground = studentProps.previousBackground;
+        this.className = studentProps.className;
+        this.favSubjects = studentProps.favSubjects;
     }
-    listsSubjects(favoriteSubjects) {
-        console.log(`${favoriteSubjects}`);
+    listsSubjects(favSubjects) {
+        return (`${this.favSubjects}`);
     }
     PRAssignment(subject) {
-        console.log(`${student.name} has submitted a PR for ${subject}.`)
+        return (`${this.name} has submitted a PR for ${subject}.`)
     }
     sprintChallenge(subject) {
-        console.log(`${student.name} has begun sprint challenge on ${subject}.`);
+        return (`${this.name} has begun sprint challenge on ${subject}.`);
     }
 }
 
 class ProjectManager extends Instructor {
     constructor(pMProps) {
         super(pMProps);
-        this.gradClassName = gradClassName;
-        this.favInstructor = favInstructor;
+        this.gradClassName = pMProps.gradClassName;
+        this.favInstructor = pMProps.favInstructor;
     }
-    standUp(channel) {
-        console.log(`${name} announces to ${channel}, @channel standy times!​​​​​`);
+    standUp(name, channel) {
+        return (`${this.name} announces to ${channel}, @channel standby times!​​​​​`);
     }
-    debugsCode(student, subject) {
-        console.log(`${name} debugs ${student.name}'s code on ${subject}`);
+    debugsCode(name, student, subject) {
+        return (`${this.name} debugs ${student.name}'s code on ${subject}`);
     }
 }
 
-const alfred = new Person(
+const alfred = new Person({
     name: 'Alfred',
     age: 39,
     location: 'Alabama',
     gender: 'M'
-)
+});
 
-const brenda = Instructor(
+const brenda = new Instructor({
     name: 'Brenda',
     age: 29,
     location: 'California',
-    gender: 'F'
-)
+    gender: 'F',
+    specialty: 'redux',
+    favLanguage: 'JS',
+    catchPhrase: 'DOM'
+});
 
-const calvin = Student(
+const calvin = new Student({
     name: 'Calvin',
     age: 32,
     location: 'Delaware',
-    gender: 'M'
-)
+    gender: 'M',
+    previousBackground: 'retail',
+    className: 'WEBPT4',
+    favSubjects: '[JS, DOM, react]'
+});
 
-const david = ProjectManager(
+const david = new ProjectManager({
     name: 'David',
     age: 27,
     location: 'Florida',
-    gender: 'M'
-)
+    gender: 'M',
+    gradClassName: 'CS1',
+    favInstructor: 'Brenda'
+});
 
-speak(calvin);
+console.log(alfred.speak());
+console.log(brenda.demo('JS'));
+console.log(brenda.grade(calvin, 'JS'));
+console.log(calvin.PRAssignment('JS'));
+console.log(calvin.sprintChallenge('JS'));
+console.log(calvin.listsSubjects());
+console.log(david.standUp(david, 'WEBPT4'));
+console.log(david.debugsCode(david, calvin, 'JS'));

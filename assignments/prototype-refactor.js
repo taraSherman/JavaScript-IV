@@ -26,8 +26,8 @@ class CharacterStats extends GameObject {
         return `${this.name} took damage`;
     }
 }
-class Humanoid extends GameObject {
-    constructor (humAttributes) {
+class Humanoid extends CharacterStats {
+    constructor(humAttributes) {
         super(humAttributes);
         this.team = humAttributes.team;
         this.weapons = humAttributes.weapons;
